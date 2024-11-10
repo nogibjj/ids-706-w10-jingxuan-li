@@ -1,37 +1,67 @@
-[![CI](https://github.com/nogibjj/python-ruff-template/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/python-ruff-template/actions/workflows/cicd.yml)
-## Template for Python projects with RUFF linter
+[![CI](https://github.com/nogibjj/ids-706-w10-jingxuan-li/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/ids-706-w10-jingxuan-li/actions/workflows/cicd.yml)
+### Data Processing with PySpark
 
-![1 15_rust_built_python_tools](https://github.com/nogibjj/python-ruff-template/assets/58792/db5f7bda-a977-4c67-acbe-a70fe034fbdf)
+#### Project Overview
+This project involves data processing using PySpark to analyze and transform a dataset of the world's best restaurants. The project includes functions for loading data, performing transformations, and running SQL queries using Spark SQL.
 
+#### File Structure
+- `mylib/lib.py`: Contains the main functions for data processing, including data loading, describing, transformations, and querying.
+- `main.py`: A script that imports and executes the functions defined in `mylib/lib.py` to perform data analysis and transformations.
+- `data/WorldBestRestaurants.csv`: csv file
+- `test_main.py`: A `pytest`-based test suite for validating the functionality in `mylib/lib.py`.
+- `pyspark_output.md`: generated output report for the main.py
 
+#### Functionality
+1. **Data Processing Functionality**
+   - **Loading Data**: The `load_data()` function loads a CSV file into a PySpark DataFrame with a predefined schema to ensure correct data types and structure.
+   - **Descriptive Statistics**: The `describe()` function computes and logs basic statistics (e.g., mean, standard deviation) for each numerical column in the DataFrame.
+   - **Logging**: The `log_output()` function writes the operation details and output to a markdown file, `pyspark_output.md`, for review.
 
-1. First thing to do on launch is to open a new shell and verify virtualenv is sourced.
+2. **Use of Spark SQL and Transformations**
+   - **SQL Queries**: The `query()` function allows you to run SQL queries on the DataFrame by creating a temporary SQL view. The output is logged and displayed.
+   - **Data Transformations**: The `example_transform()` function performs data transformations using conditional logic to categorize restaurants based on their country and ranking.
+   - **Spark SQL Example**:
+     ```python
+     sample_query = """
+     SELECT `Restaurant`, Country, Rank
+     FROM BestRestaurants
+     WHERE Rank < 20
+     ORDER BY Rank ASC
+     """
+     query(spark, df, sample_query, "BestRestaurants")
+     ```
+     This query retrieves restaurants ranked in the top 20, ordered by their rank.
 
-Things included are:
+#### Usage
+1. **Setup**:
+   - Use GitHub Codespaces to open
+   - wait for environment to be installed
 
-* `Makefile`
+2. **Installation**
 
-* `Pytest`
+Install the required packages using `pip`:
+```bash
+make install
+```
 
-* `pandas`
+3. **Run the Main Script**:
+   ```bash
+   python main.py
+   ```
+   This will load the data, print descriptive statistics, apply transformations, and run an SQL query.
 
-* `Ruff`:  
+4. **Run Tests**:
+   Execute the test suite to validate the functions:
+   ```bash
+   make test
+   ```
 
-Run `make lint` which runs `ruff check`.  You can find out more info on [Ruff here](https://github.com/astral-sh/ruff).
+#### Project Components
+- **Data Loading**: Reads the CSV data with a structured schema using `load_data()`.
+- **Descriptive Statistics**: The `describe()` function provides an overview of data distributions.
+- **Transformations**: The `example_transform()` function categorizes rows based on specific conditions.
+- **SQL Queries**: The `query()` function runs SQL commands to filter and sort the data.
 
-* `Dockerfile`
-
-* `GitHub copilot`
-
-* `jupyter` and `ipython` 
-
-* A base set of libraries for devops and web
-
-* `githubactions`
-
-## References
-
-![1 1-function-essence-of-programming](https://github.com/nogibjj/python-ruff-template/assets/58792/f7f33cd3-cff5-4014-98ea-09b6a29c7557)
-
-
-
+#### Example Output
+- **Log File**: The `pyspark_output.md` will contain the outputs of each operation in markdown format for easy review.
+- **Console**: The console will display outputs using `.show()` for immediate feedback.
