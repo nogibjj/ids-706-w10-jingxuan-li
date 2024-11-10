@@ -1,19 +1,27 @@
-"""
-Main cli or app entry point
-"""
-
-from mylib.calculator import add
-import click
-
-#var=1;var=2
-
-@click.command("add")
-@click.argument("a", type=int)
-@click.argument("b", type=int)
-def add_cli(a, b):
-    click.echo(add(a, b))
-
+from mylib.lib import (
+    start_spark,
+    load_data,
+    describe,
+    example_transform,
+    query,
+    end_spark,
+)
 
 if __name__ == "__main__":
-    # pylint: disable=no-value-for-parameter
-    add_cli()
+    spark = start_spark("BestRestaurantsMain")
+
+    df = load_data(spark, "data/WorldsBestRestaurants.csv")
+
+    describe(df)
+
+    example_transform(df)
+
+    sample_query = """
+    SELECT `Restaurant`, Country, Rank
+    FROM BestRestaurants
+    WHERE  Rank < 20 
+    ORDER BY Rank ASC
+    """
+    query(spark, df, sample_query, "BestRestaurants")
+
+    print(end_spark(spark))
