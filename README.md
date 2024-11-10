@@ -55,6 +55,8 @@ make install
    ```bash
    make test
    ```
+   ![image](https://github.com/user-attachments/assets/fe540995-fdeb-407f-b409-e0f7f1080ccf)
+
 
 #### Project Components
 - **Data Loading**: Reads the CSV data with a structured schema using `load_data()`.
